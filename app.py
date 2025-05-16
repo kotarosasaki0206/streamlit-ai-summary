@@ -2,6 +2,7 @@ import streamlit as st
 import openai
 import fitz  # PyMuPDF
 import pandas as pd
+import os
 from pptx import Presentation
 from openai import OpenAI
 
@@ -49,7 +50,8 @@ if uploaded_files:
     """
 
     with st.spinner("OpenAIで要約中..."):
-        client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+#       client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+        client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
